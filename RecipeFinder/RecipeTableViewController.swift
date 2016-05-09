@@ -12,10 +12,11 @@ class RecipeTableViewController: UITableViewController {
 	
 	//MARK: Properties
 	var dataSource:RecipeTableViewControllerDataSource!
-	var delegate:RecipeTableViewControllerDelegate!
 	
 	var loadingView = ActivityIndicatorLoadingView(frame: CGRect(x: 0.0, y: 0.0, width: 80.0, height: 80.0))
+	
 	var recipeAPI = RecipeAPI.sharedAPI
+	private var isUpdating = false
 	
 	//MARK: Outlets
 	@IBOutlet weak var recipeSearchBar: UISearchBar!
@@ -25,16 +26,25 @@ class RecipeTableViewController: UITableViewController {
 		super.viewDidLoad()
 		
 		dataSource = RecipeTableViewControllerDataSource()
-		delegate = RecipeTableViewControllerDelegate()
 
 		tableView.dataSource = dataSource
-		tableView.delegate = delegate
-		
+		tableView.delegate = self
 		
 		loadingView.center = view.center
 		view.addSubview(loadingView)
 		
 		recipeSearchBar.delegate = self
+	}
+	
+	//MARK: Methods
+	func updateRecipes() {
+		//perform search
+		recipeAPI.getRecipes(forFoodWithName: recipeSearchBar.text!, isUpdatingQuery: true) { (error) in
+			self.isUpdating = false
+			performUIUpdatesOnMain({
+				self.tableView.reloadData()
+			})
+		}
 	}
 }
 
@@ -43,7 +53,7 @@ extension RecipeTableViewController: UISearchBarDelegate {
 		loadingView.show()
 		
 		//perform search
-		recipeAPI.getRecipes(forFoodWithName: searchBar.text!) { (error) in
+		recipeAPI.getRecipes(forFoodWithName: searchBar.text!, isUpdatingQuery: false) { (error) in
 			performUIUpdatesOnMain({
 				self.tableView.reloadData()
 				self.loadingView.hide()
@@ -53,5 +63,19 @@ extension RecipeTableViewController: UISearchBarDelegate {
 	
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
 		loadingView.hide()
+	}
+}
+
+extension RecipeTableViewController {
+	override func scrollViewDidScroll(scrollView: UIScrollView) {
+		let currentOffset = scrollView.contentOffset.y
+		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+		let deltaOffset = maximumOffset - currentOffset
+		
+		if deltaOffset <= 0 && !isUpdating {
+			isUpdating = true
+			
+			updateRecipes()
+		}
 	}
 }

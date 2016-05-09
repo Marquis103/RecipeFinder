@@ -8,11 +8,21 @@
 
 import Foundation
 
-struct RecipeClient {
+class RecipeClient {
 	static let sharedClient = RecipeClient()
 	
 	//MARK: Struct Properties
 	private let session = NSURLSession.sharedSession()
+	private let itemsPerRequest = 10
+	private var itemsFrom = 0
+	private var itemsTo = 10
+	
+	var pageCount: Int = 0 {
+		didSet {
+			itemsFrom = itemsPerRequest * pageCount
+			itemsTo = itemsFrom + itemsPerRequest
+		}
+	}
 	
 	private struct Constants {
 		struct RecipeAPI {
@@ -75,8 +85,7 @@ struct RecipeClient {
 			return NSURLRequest(URL: url)
 		} else {
 			return nil
-		}
-		
+		}	
 	}
 	
 	private func checkForRequestErrors(data:NSData?, response:NSURLResponse?, error:NSError?) -> RecipeClientError? {
@@ -152,6 +161,8 @@ struct RecipeClient {
 		parameters["app_id"] = Constants.RecipeAPI.Id
 		parameters["app_key"] = Constants.RecipeAPI.Key
 		parameters["q"] = query
+		parameters["from"] = String(itemsFrom)
+		parameters["to"] = String(itemsTo)
 		
 		guard let request = generateNSURLRequest(parameters) else {
 			throw RecipeClientError.CouldNotGenerateRequest("Could not generate the request for the search string")
