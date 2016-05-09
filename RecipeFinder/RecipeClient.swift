@@ -106,8 +106,8 @@ struct RecipeClient {
 		let title = recipeDict[Constants.JSONKeys.title] as! String
 		let ingredients = recipeDict[Constants.JSONKeys.ingredientsList] as! [String]
 		let url = recipeDict[Constants.JSONKeys.url] as! String
-		
-		return Recipe(title: title, ingredients: ingredients, source: source, prepTime: nil, cookTime: nil, level: 0, image: nil, nutrition: nil, url: url)
+		let image = recipeDict[Constants.JSONKeys.image] as! String
+		return Recipe(title: title, ingredients: ingredients, source: source, prepTime: nil, cookTime: nil, level: 0, image: image, nutrition: nil, url: url)
 		
 	}
 	

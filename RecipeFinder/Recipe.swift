@@ -21,7 +21,7 @@ struct Recipe {
 	var prepTime: Double?
 	var cookTime: Double?
 	var level:Int?
-	var image:NSData?
+	var image:String?
 	var nutrition:Nutrition?
 	var url: String?
 	

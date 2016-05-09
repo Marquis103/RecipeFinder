@@ -9,14 +9,5 @@
 import UIKit
 
 class RecipeTableViewControllerDelegate: NSObject, UITableViewDelegate {
-	//private weak var tableView:UITableView!
 	
-	/*
-	init(withTableView tableView: UITableView) {
-		self.tableView = tableView
-		super.init()
-		
-		self.tableView.delegate = self
-		
-	}*/
 }

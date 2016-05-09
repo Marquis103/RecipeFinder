@@ -24,15 +24,11 @@ class RecipeTableViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		//dataSource = RecipeTableViewControllerDataSource(withTableView: tableView)
 		dataSource = RecipeTableViewControllerDataSource()
 		delegate = RecipeTableViewControllerDelegate()
-		
+
 		tableView.dataSource = dataSource
 		tableView.delegate = delegate
-		
-		
-		//delegate = RecipeTableViewControllerDelegate(withTableView: tableView)
 		
 		
 		loadingView.center = view.center
@@ -48,14 +44,11 @@ extension RecipeTableViewController: UISearchBarDelegate {
 		
 		//perform search
 		recipeAPI.getRecipes(forFoodWithName: searchBar.text!) { (error) in
-			self.tableView.reloadData()
-			self.loadingView.hide()
+			performUIUpdatesOnMain({
+				self.tableView.reloadData()
+				self.loadingView.hide()
+			})
 		}
-		
-//		if let navController = tableView.window?.rootViewController as? RecipeNavigationController {
-//			navController.recipes = recipes
-//			
-//		}
 	}
 	
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {

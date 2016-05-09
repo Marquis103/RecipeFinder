@@ -23,6 +23,8 @@
 		F46970A21CDFC5B000068D2D /* RecipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970A11CDFC5B000068D2D /* RecipeNavigationController.swift */; };
 		F46970A41CDFDE7800068D2D /* ActivityIndicatorLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970A31CDFDE7800068D2D /* ActivityIndicatorLoadingView.swift */; };
 		F46970A61CE047FF00068D2D /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970A51CE047FF00068D2D /* RecipeTableViewCell.swift */; };
+		F46970AB1CE0DB4500068D2D /* GCDBlackbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970AA1CE0DB4500068D2D /* GCDBlackbox.swift */; };
+		F46970AD1CE0EC7A00068D2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970AC1CE0EC7A00068D2D /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		F46970A11CDFC5B000068D2D /* RecipeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeNavigationController.swift; sourceTree = "<group>"; };
 		F46970A31CDFDE7800068D2D /* ActivityIndicatorLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorLoadingView.swift; sourceTree = "<group>"; };
 		F46970A51CE047FF00068D2D /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
+		F46970AA1CE0DB4500068D2D /* GCDBlackbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackbox.swift; sourceTree = "<group>"; };
+		F46970AC1CE0EC7A00068D2D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +215,7 @@
 		F46970A71CE0D33500068D2D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				F46970AE1CE0EC7F00068D2D /* Extensions */,
 				F46970A91CE0D34600068D2D /* Views */,
 				F46970A81CE0D33D00068D2D /* Classes */,
 			);
@@ -228,8 +233,17 @@
 			isa = PBXGroup;
 			children = (
 				F46970A31CDFDE7800068D2D /* ActivityIndicatorLoadingView.swift */,
+				F46970AA1CE0DB4500068D2D /* GCDBlackbox.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		F46970AE1CE0EC7F00068D2D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F46970AC1CE0EC7A00068D2D /* StringExtension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,7 +383,9 @@
 				F46970961CDE894600068D2D /* RecipeAPI.swift in Sources */,
 				F46970981CDE8E7C00068D2D /* RecipeClient.swift in Sources */,
 				F46970921CDE77A800068D2D /* Recipe.swift in Sources */,
+				F46970AB1CE0DB4500068D2D /* GCDBlackbox.swift in Sources */,
 				F469709C1CDFBF6200068D2D /* RecipeTableViewController.swift in Sources */,
+				F46970AD1CE0EC7A00068D2D /* StringExtension.swift in Sources */,
 				F46970A21CDFC5B000068D2D /* RecipeNavigationController.swift in Sources */,
 				F46970A41CDFDE7800068D2D /* ActivityIndicatorLoadingView.swift in Sources */,
 				F46970A01CDFBFE000068D2D /* RecipeTableViewControllerDelegate.swift in Sources */,

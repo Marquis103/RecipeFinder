@@ -9,5 +9,5 @@
 import UIKit
 
 class RecipeNavigationController: UINavigationController {
-	var recipes:[Recipe]?
+	
 }

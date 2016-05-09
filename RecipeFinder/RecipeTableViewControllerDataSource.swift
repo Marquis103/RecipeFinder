@@ -8,15 +8,7 @@
 
 import UIKit
 
-class RecipeTableViewControllerDataSource:NSObject, UITableViewDataSource {
-	private weak var tableView: UITableView!
-	
-	/*
-	init(withTableView tableView:UITableView) {
-		self.tableView = tableView
-		super.init()
-	}*/
-	
+class RecipeTableViewControllerDataSource:NSObject, UITableViewDataSource {	
 	//MARK: UITableViewDataSource
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 1
@@ -24,16 +16,6 @@ class RecipeTableViewControllerDataSource:NSObject, UITableViewDataSource {
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return RecipeAPI.sharedAPI.recipes.count
-		
-		/*if let navController = tableView.window?.rootViewController as? RecipeNavigationController {
-			if let recipes = navController.recipes {
-				return recipes.count
-			} else {
-				return 0
-			}
-		} else {
-			return 0
-		}*/
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
