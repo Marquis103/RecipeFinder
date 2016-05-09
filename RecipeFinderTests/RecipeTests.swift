@@ -21,7 +21,18 @@ class RecipeTests: XCTestCase {
 
     func testRecipeRequest() {
 		let client = RecipeClient.sharedClient
-		let recipes = try! client.executeRecipeSearch(withQuery: "lasagne")
-		print(recipes)
+		
+		try! client.executeRecipeSearch(withQuery: "lasagne", completionHandler: { (recipes, error) in
+			guard let recipes = recipes else {
+				if let error = error {
+					print (error)
+				} else {
+					print("there was no data")
+				}
+				return
+			}
+			
+			print(recipes)
+		})
     }
 }

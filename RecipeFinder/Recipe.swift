@@ -14,9 +14,7 @@ typealias Ingredients = [String]
 struct Recipe {
 	//constants
 	let title:String
-	let calories:Calories
 	let ingredients: Ingredients
-	let nutrition:Nutrition
 	let source: String
 	
 	//variables
@@ -24,6 +22,8 @@ struct Recipe {
 	var cookTime: Double?
 	var level:Int?
 	var image:NSData?
+	var nutrition:Nutrition?
+	var url: String?
 	
 	//computed properties
 	var totalTime:Double? {
@@ -39,6 +39,7 @@ typealias Grams = Float
 typealias Milligrams = Float
 
 struct Nutrition {
+	let calories:Calories
 	let fat:Grams
 	let carbs:Grams
 	let protein:Grams

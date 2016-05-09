@@ -13,6 +13,7 @@ struct RecipeClient {
 	
 	//MARK: Struct Properties
 	private let session = NSURLSession.sharedSession()
+	
 	private struct Constants {
 		struct RecipeAPI {
 			static let Scheme = "https"
@@ -20,6 +21,25 @@ struct RecipeClient {
 			static let Path = "/search"
 			static let Key = "e0c0610a32a9c73a1a7d1fb3bb8ef2ce"
 			static let Id = "9ef83afb"
+		}
+		
+		struct JSONKeys {
+			static let recipeList = "hits"
+			static let recipe = "recipe"
+			static let source = "source"
+			static let image = "image"
+			static let title = "label"
+			static let level = "level"
+			static let url = "url"
+			static let ingredientsList = "ingredientLines"
+			static let calories = "calories"
+			static let totalNutrients = "totalNutrients"
+			static let fat = "FAT"
+			static let carbs = "CHOCDF"
+			static let sodium = "NA"
+			static let protein = "PROCNT"
+			static let value = "quantity"
+			
 		}
 	}
 	
@@ -47,6 +67,8 @@ struct RecipeClient {
 					queryItems.append(queryItem)
 				}
 			}
+			
+			components.queryItems = queryItems
 		}
 		
 		if let url = components.URL {
@@ -58,12 +80,6 @@ struct RecipeClient {
 	}
 	
 	private func checkForRequestErrors(data:NSData?, response:NSURLResponse?, error:NSError?) -> RecipeClientError? {
-		func sendError(error:String) -> NSError {
-			print(error)
-			let userInfo = [NSLocalizedDescriptionKey : error]
-			return NSError(domain: "taskForGetMethod", code: -1, userInfo: userInfo)
-		}
-		
 		//was there an error?
 		guard error == nil else {
 			return RecipeClientError.InvalidData("Invalid data return from query. \(error)")
@@ -82,11 +98,54 @@ struct RecipeClient {
 		return nil
 	}
 	
-	private func responseParser(data: [String: AnyObject]) -> [Recipe] {
-		return [Recipe]()
+	
+	private func parseRecipe(recipeDict: [String: AnyObject]) -> Recipe? {
+		let source = recipeDict[Constants.JSONKeys.source] as! String
+		//let imageData = recipeDict[Constants.JSONKeys.image]
+		//let difficulty = recipeDict["level"]
+		let title = recipeDict[Constants.JSONKeys.title] as! String
+		let ingredients = recipeDict[Constants.JSONKeys.ingredientsList] as! [String]
+		let url = recipeDict[Constants.JSONKeys.url] as! String
+		
+		return Recipe(title: title, ingredients: ingredients, source: source, prepTime: nil, cookTime: nil, level: 0, image: nil, nutrition: nil, url: url)
+		
 	}
 	
-	func executeRecipeSearch(withQuery query:String) throws -> [Recipe] {
+	private func parseNutrition(nutritionDict: [String:AnyObject]) -> Nutrition? {
+		if let totalNutrients = nutritionDict[Constants.JSONKeys.totalNutrients] as? [String:AnyObject] {
+			let calories = nutritionDict[Constants.JSONKeys.calories] as? Float
+			let fat = totalNutrients[Constants.JSONKeys.fat]?[Constants.JSONKeys.value] as? Float
+			let carbs = totalNutrients[Constants.JSONKeys.carbs]?[Constants.JSONKeys.value] as? Float
+			let sodium = totalNutrients[Constants.JSONKeys.sodium]?[Constants.JSONKeys.value] as? Float
+			let protein = totalNutrients[Constants.JSONKeys.protein]?[Constants.JSONKeys.value] as? Float
+			
+			return Nutrition(calories: calories!, fat: fat!, carbs: carbs!, protein: protein!, sodium: sodium!)
+		}
+		
+		return nil
+	}
+	
+	private func responseParser(data: [String: AnyObject]) -> [Recipe] {
+		var recipeItems = [Recipe]()
+		
+		if let recipeList = data[Constants.JSONKeys.recipeList] as? [[String:AnyObject]] {
+			for recipe in recipeList {
+				if let recipeDict = recipe[Constants.JSONKeys.recipe] as? [String:AnyObject] {
+					let nutrition = parseNutrition(recipeDict)
+					var recipe = parseRecipe(recipeDict)
+					
+					recipe?.nutrition = nutrition
+					recipeItems.append(recipe!)
+				}
+			}
+			
+			return recipeItems
+		}
+		
+		return recipeItems
+	}
+	
+	func executeRecipeSearch(withQuery query:String, completionHandler: ([Recipe]?, ErrorType?) -> () ) throws -> Void {//[Recipe] {
 		var parameters = [String:AnyObject]()
 		
 		//static query parameters
@@ -100,24 +159,23 @@ struct RecipeClient {
 		
 		let task = session.dataTaskWithRequest(request) { data, response, error in
 			if let error = self.checkForRequestErrors(data, response: response, error: error) {
-				print(error)
-				return
+				return completionHandler(nil, error)
 			} else {
-				var parsedResult:AnyObject!
+				var jsonResult:AnyObject!
 				
 				do {
-					parsedResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
-					print(parsedResult)
+					jsonResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+					let recipes = self.responseParser(jsonResult as! [String : AnyObject])
+					completionHandler(recipes, nil)
+					
 				} catch let error {
 					print (error)
+					completionHandler(nil, error)
 				}
 			}
 		}
 		
 		task.resume()
-		
-		
-		return [Recipe]()
 	}
 	
 }
