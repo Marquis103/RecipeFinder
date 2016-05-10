@@ -145,6 +145,7 @@ extension RecipeTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		view.endEditing(true)
 		selectedRecipe = recipeAPI.recipes[indexPath.row]
 		
 		performSegueWithIdentifier("recipeDetailSegue", sender: nil)
