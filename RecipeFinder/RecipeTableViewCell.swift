@@ -36,7 +36,7 @@ class RecipeTableViewCell: UITableViewCell {
 		
 		recipeImage.layer.cornerRadius = CGRectGetWidth(recipeImage.frame) / 2.0
 		
-		recipeCalories.text = String(format: "Calories: %.2f", (recipe.nutrition?.calories)!)
+		recipeCalories.text = String(format: "Calories: %.2f per serving", (recipe.nutrition?.calories)!)
 		recipeDifficulty.text = (recipe.level == 0) ? "Difficulty Level: Not Available" : "Diffculty Level: \(recipe.level)"
 		recipeName.text = recipe.title
 		

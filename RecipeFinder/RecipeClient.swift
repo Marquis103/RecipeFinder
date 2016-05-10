@@ -110,8 +110,6 @@ class RecipeClient {
 	
 	private func parseRecipe(recipeDict: [String: AnyObject]) -> Recipe? {
 		let source = recipeDict[Constants.JSONKeys.source] as! String
-		//let imageData = recipeDict[Constants.JSONKeys.image]
-		//let difficulty = recipeDict["level"]
 		let title = recipeDict[Constants.JSONKeys.title] as! String
 		let ingredients = recipeDict[Constants.JSONKeys.ingredientsList] as! [String]
 		let url = recipeDict[Constants.JSONKeys.url] as! String

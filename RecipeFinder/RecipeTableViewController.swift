@@ -38,6 +38,18 @@ class RecipeTableViewController: UITableViewController {
 		recipeSearchBar.delegate = self
 	}
 	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		guard Reachability.connectedToNetwork() == true else {
+			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection will be required to search for recipes.", preferredStyle: .Alert)
+			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+			alert.addAction(action)
+			self.presentViewController(alert, animated: true, completion: nil)
+			return
+		}
+	}
+	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "recipeDetailSegue" {
 			let destinationController = segue.destinationViewController as! RecipeDetailViewController
@@ -49,6 +61,14 @@ class RecipeTableViewController: UITableViewController {
 	
 	//MARK: Methods
 	func updateRecipes() {
+		guard Reachability.connectedToNetwork() == true else {
+			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", preferredStyle: .Alert)
+			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+			alert.addAction(action)
+			self.presentViewController(alert, animated: true, completion: nil)
+			return
+		}
+		
 		//perform search
 		recipeAPI.getRecipes(forFoodWithName: recipeSearchBar.text!, isUpdatingQuery: true) { (error) in
 			self.isUpdating = false
@@ -62,6 +82,14 @@ class RecipeTableViewController: UITableViewController {
 extension RecipeTableViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()
+		
+		guard Reachability.connectedToNetwork() == true else {
+			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", preferredStyle: .Alert)
+			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+			alert.addAction(action)
+			self.presentViewController(alert, animated: true, completion: nil)
+			return
+		}
 		
 		loadingView.show()
 		

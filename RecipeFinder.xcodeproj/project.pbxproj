@@ -25,6 +25,7 @@
 		F46970AB1CE0DB4500068D2D /* GCDBlackbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970AA1CE0DB4500068D2D /* GCDBlackbox.swift */; };
 		F46970AD1CE0EC7A00068D2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970AC1CE0EC7A00068D2D /* StringExtension.swift */; };
 		F46970B01CE11FA100068D2D /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970AF1CE11FA100068D2D /* RecipeDetailViewController.swift */; };
+		F4AB039E1CE235840063C03F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB039D1CE235840063C03F /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		F46970AA1CE0DB4500068D2D /* GCDBlackbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackbox.swift; sourceTree = "<group>"; };
 		F46970AC1CE0EC7A00068D2D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		F46970AF1CE11FA100068D2D /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
+		F4AB039D1CE235840063C03F /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 		F46970A81CE0D33D00068D2D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F4AB039D1CE235840063C03F /* Reachability.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				F46970A21CDFC5B000068D2D /* RecipeNavigationController.swift in Sources */,
 				F46970B01CE11FA100068D2D /* RecipeDetailViewController.swift in Sources */,
 				F46970A41CDFDE7800068D2D /* ActivityIndicatorLoadingView.swift in Sources */,
+				F4AB039E1CE235840063C03F /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +620,7 @@
 				F46970831CDD256A00068D2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F46970841CDD256A00068D2D /* Build configuration list for PBXNativeTarget "RecipeFinderTests" */ = {
 			isa = XCConfigurationList;
@@ -624,6 +629,7 @@
 				F46970861CDD256A00068D2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F46970871CDD256A00068D2D /* Build configuration list for PBXNativeTarget "RecipeFinderUITests" */ = {
 			isa = XCConfigurationList;
@@ -632,6 +638,7 @@
 				F46970891CDD256A00068D2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

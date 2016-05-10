@@ -94,9 +94,9 @@ class RecipeDetailViewController: UIViewController {
 			
 			recipeTitle.text = recipe.title
 			recipeDifficulty.text = (recipe.level == 0) ? "Difficulty Level: Not Available" : "Diffculty Level: \(recipe.level)"
-			prepTime.text = "10m"
-			cookTime.text = "15m"
-			totalTime.text = "25m"
+			prepTime.text = "NA"
+			cookTime.text = "NA"
+			totalTime.text = "NA"
 			sourceButton.setTitle(recipe.source, forState: .Normal)
 			
 			let ingredientString = recipe.ingredients.reduce(String.Empty, combine: { (ingredientAccumulator, ingredient) -> String in
