@@ -29,6 +29,7 @@ class RecipeDetailViewController: UIViewController {
 	@IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var contentViewHeight: NSLayoutConstraint!
 	@IBOutlet weak var containerView: UIView!
+	@IBOutlet weak var nutritionView: UIView!
 	
 	//MARK: View Controller Lifecycle
 	override func viewWillAppear(animated: Bool) {
@@ -121,6 +122,9 @@ class RecipeDetailViewController: UIViewController {
 				lblSodium.text = String(format: "%.2f mg", nutrition.sodium)
 				lblProtein.text = String(format: "%.2f g", nutrition.protein)
 			}
+			
+			nutritionView.layer.borderColor = UIColor.blackColor().CGColor
+			nutritionView.layer.borderWidth = 1.0
 		}
 	}
 }
