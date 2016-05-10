@@ -36,6 +36,9 @@ class RecipeTableViewController: UITableViewController {
 		view.addSubview(loadingView)
 		
 		recipeSearchBar.delegate = self
+		
+		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleSingleTap))
+		view.addGestureRecognizer(tapGesture)
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -60,6 +63,10 @@ class RecipeTableViewController: UITableViewController {
 	}
 	
 	//MARK: Methods
+	@objc private func handleSingleTap() {
+		view.endEditing(true)
+	}
+	
 	func updateRecipes() {
 		guard Reachability.connectedToNetwork() == true else {
 			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", preferredStyle: .Alert)

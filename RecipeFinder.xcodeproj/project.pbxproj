@@ -11,7 +11,6 @@
 		F46970621CDD256A00068D2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F46970601CDD256A00068D2D /* Main.storyboard */; };
 		F46970641CDD256A00068D2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F46970631CDD256A00068D2D /* Assets.xcassets */; };
 		F46970671CDD256A00068D2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F46970651CDD256A00068D2D /* LaunchScreen.storyboard */; };
-		F46970721CDD256A00068D2D /* RecipeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970711CDD256A00068D2D /* RecipeFinderTests.swift */; };
 		F469707D1CDD256A00068D2D /* RecipeFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469707C1CDD256A00068D2D /* RecipeFinderUITests.swift */; };
 		F46970921CDE77A800068D2D /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970911CDE77A800068D2D /* Recipe.swift */; };
 		F46970961CDE894600068D2D /* RecipeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970951CDE894600068D2D /* RecipeAPI.swift */; };
@@ -54,7 +53,6 @@
 		F46970661CDD256A00068D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F46970681CDD256A00068D2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F469706D1CDD256A00068D2D /* RecipeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F46970711CDD256A00068D2D /* RecipeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFinderTests.swift; sourceTree = "<group>"; };
 		F46970731CDD256A00068D2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F46970781CDD256A00068D2D /* RecipeFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F469707C1CDD256A00068D2D /* RecipeFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFinderUITests.swift; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 		F46970701CDD256A00068D2D /* RecipeFinderTests */ = {
 			isa = PBXGroup;
 			children = (
-				F46970711CDD256A00068D2D /* RecipeFinderTests.swift */,
 				F46970731CDD256A00068D2D /* Info.plist */,
 				F46970991CDE9F9800068D2D /* RecipeTests.swift */,
 			);
@@ -404,7 +401,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F46970721CDD256A00068D2D /* RecipeFinderTests.swift in Sources */,
 				F469709A1CDE9F9800068D2D /* RecipeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
