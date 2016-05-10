@@ -45,7 +45,7 @@ class RecipeTableViewController: UITableViewController {
 			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection will be required to search for recipes.", preferredStyle: .Alert)
 			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
 			alert.addAction(action)
-			self.presentViewController(alert, animated: true, completion: nil)
+			presentViewController(alert, animated: true, completion: nil)
 			return
 		}
 	}
@@ -65,7 +65,7 @@ class RecipeTableViewController: UITableViewController {
 			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", preferredStyle: .Alert)
 			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
 			alert.addAction(action)
-			self.presentViewController(alert, animated: true, completion: nil)
+			presentViewController(alert, animated: true, completion: nil)
 			return
 		}
 		
@@ -87,7 +87,7 @@ extension RecipeTableViewController: UISearchBarDelegate {
 			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", preferredStyle: .Alert)
 			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
 			alert.addAction(action)
-			self.presentViewController(alert, animated: true, completion: nil)
+			presentViewController(alert, animated: true, completion: nil)
 			return
 		}
 		

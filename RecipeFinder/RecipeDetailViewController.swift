@@ -41,12 +41,18 @@ class RecipeDetailViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		let height = getContentViewHeight()
+		//let height = getContentViewHeight()
+		let nutritionViewHeight = nutritionView.frame.maxY
 		
-		if contentViewHeight.constant - CGFloat(height) < 100 {
-			contentViewHeight.constant = CGFloat(height) + 145.0 //constraint padding
+		if contentViewHeight.constant - CGFloat(nutritionViewHeight) < 0 {
+			contentViewHeight.constant = nutritionViewHeight + 100
+			//contentViewHeight.constant = nutritionViewHeight + 100.0 //constraint padding
 		} else {
-			contentViewHeight.constant = contentViewHeight.constant - 20
+			if scrollView.contentSize.height - nutritionViewHeight < 130 {
+				scrollView.contentSize.height = nutritionViewHeight + 10
+			} else {
+				scrollView.contentSize.height = nutritionViewHeight
+			}
 		}
 	}
 	
@@ -75,46 +81,50 @@ class RecipeDetailViewController: UIViewController {
 	}
 	
 	private func setupRecipeDetails() {
+		
 		recipeDetailImage.layer.cornerRadius = 10.0
+		
 		if let recipe = recipe {
+			//get recipe image if connected to the network
 			if let imageURLString = recipe.image {
-				performImageNetworkOperations({
-					if let url = NSURL(string: imageURLString), let data = NSData(contentsOfURL: url) {
-						performUIUpdatesOnMain({
-							if let image = UIImage(data: data) {
-								self.recipeDetailImage.image = image
-							} else {
-								self.recipeDetailImage.image = UIImage(named: "food_icn_no_image")
-							}
-						})
-					}
-				})
+				if Reachability.connectedToNetwork() {
+					performImageNetworkOperations({
+						if let url = NSURL(string: imageURLString), let data = NSData(contentsOfURL: url) {
+							performUIUpdatesOnMain({
+								if let image = UIImage(data: data) {
+									self.recipeDetailImage.image = image
+								} else {
+									self.recipeDetailImage.image = UIImage(named: "food_icn_no_image")
+								}
+							})
+						}
+					})
+				} else {
+					recipeDetailImage.image = UIImage(named: "food_icn_no_image")
+				}
 			} else {
 				recipeDetailImage.image = UIImage(named: "food_icn_no_image")
 			}
 			
+			//set recipe info details
 			recipeTitle.text = recipe.title
 			recipeDifficulty.text = (recipe.level == 0) ? "Difficulty Level: Not Available" : "Diffculty Level: \(recipe.level)"
+			sourceButton.setTitle(recipe.source, forState: .Normal)
+			
+			//set recipe prep time to NA -- could not find values given API values
 			prepTime.text = "NA"
 			cookTime.text = "NA"
 			totalTime.text = "NA"
-			sourceButton.setTitle(recipe.source, forState: .Normal)
 			
+			//set ingredients text and view
 			let ingredientString = recipe.ingredients.reduce(String.Empty, combine: { (ingredientAccumulator, ingredient) -> String in
 				ingredientAccumulator + ingredient + "\n"
 			})
 			
 			ingredientsListView.layoutManager.delegate = self
-			
 			ingredientsListView.text = String(ingredientString.characters.dropLast())
-			
-			let fixedWidth = ingredientsListView.frame.size.width
-			ingredientsListView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-			let newSize = ingredientsListView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-			var newFrame = ingredientsListView.frame
-			newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-			ingredientsListView.frame = newFrame;
-			
+
+			//set nutrition labels and view
 			if let nutrition = recipe.nutrition {
 				lblCalories.text = String(format: "%.2f g", nutrition.calories)
 				lblFat.text = String(format: "%.2f g", nutrition.fat)

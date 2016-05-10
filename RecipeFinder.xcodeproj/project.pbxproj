@@ -26,6 +26,7 @@
 		F46970AD1CE0EC7A00068D2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970AC1CE0EC7A00068D2D /* StringExtension.swift */; };
 		F46970B01CE11FA100068D2D /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970AF1CE11FA100068D2D /* RecipeDetailViewController.swift */; };
 		F4AB039E1CE235840063C03F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB039D1CE235840063C03F /* Reachability.swift */; };
+		F4AB03A01CE23E930063C03F /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4AB039F1CE23E930063C03F /* Keys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		F46970AC1CE0EC7A00068D2D /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		F46970AF1CE11FA100068D2D /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		F4AB039D1CE235840063C03F /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		F4AB039F1CE23E930063C03F /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				F46970681CDD256A00068D2D /* Info.plist */,
 				F469705C1CDD256A00068D2D /* AppDelegate.swift */,
 				F46970631CDD256A00068D2D /* Assets.xcassets */,
+				F4AB039F1CE23E930063C03F /* Keys.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4AB03A01CE23E930063C03F /* Keys.plist in Resources */,
 				F46970671CDD256A00068D2D /* LaunchScreen.storyboard in Resources */,
 				F46970641CDD256A00068D2D /* Assets.xcassets in Resources */,
 				F46970621CDD256A00068D2D /* Main.storyboard in Resources */,

@@ -19,17 +19,21 @@ class RecipeTableViewCell: UITableViewCell {
 		setLabelFonts()
 		
 		if let imageURLString = recipe.image {
-			performImageNetworkOperations({
-				if let url = NSURL(string: imageURLString), let data = NSData(contentsOfURL: url) {
-					performUIUpdatesOnMain({
-						if let image = UIImage(data: data) {
-							self.recipeImage.image = image
-						} else {
-							self.recipeImage.image = UIImage(named: "food_icn_no_image")
-						}
-					})
-				}
-			})
+			if Reachability.connectedToNetwork() {
+				performImageNetworkOperations({
+					if let url = NSURL(string: imageURLString), let data = NSData(contentsOfURL: url) {
+						performUIUpdatesOnMain({
+							if let image = UIImage(data: data) {
+								self.recipeImage.image = image
+							} else {
+								self.recipeImage.image = UIImage(named: "food_icn_no_image")
+							}
+						})
+					}
+				})
+			} else {
+				recipeImage.image = UIImage(named: "food_icn_no_image")
+			}
 		} else {
 			recipeImage.image = UIImage(named: "food_icn_no_image")
 		}

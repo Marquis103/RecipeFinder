@@ -11,6 +11,17 @@ import Foundation
 class RecipeClient {
 	static let sharedClient = RecipeClient()
 	
+	var keys:NSDictionary
+	var appKey:String
+	var appId:String
+	
+	//MARK: Initialization
+	private init() {
+		keys = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Keys", ofType: "plist")!)!
+		appKey = keys.objectForKey("ApplicationKey") as! String
+		appId = keys.objectForKey("ApplicationId") as! String
+	}
+	
 	//MARK: Struct Properties
 	private let session = NSURLSession.sharedSession()
 	private let itemsPerRequest = 10
@@ -29,8 +40,6 @@ class RecipeClient {
 			static let Scheme = "https"
 			static let Host = "api.edamam.com"
 			static let Path = "/search"
-			static let Key = "e0c0610a32a9c73a1a7d1fb3bb8ef2ce"
-			static let Id = "9ef83afb"
 		}
 		
 		struct JSONKeys {
@@ -156,8 +165,8 @@ class RecipeClient {
 		var parameters = [String:AnyObject]()
 		
 		//static query parameters
-		parameters["app_id"] = Constants.RecipeAPI.Id
-		parameters["app_key"] = Constants.RecipeAPI.Key
+		parameters["app_id"] = appId
+		parameters["app_key"] = appKey
 		parameters["q"] = query
 		parameters["from"] = String(itemsFrom)
 		parameters["to"] = String(itemsTo)
