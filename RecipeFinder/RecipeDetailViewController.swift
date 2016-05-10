@@ -27,14 +27,26 @@ class RecipeDetailViewController: UIViewController {
 	@IBOutlet weak var lblProtein: UILabel!
 	@IBOutlet weak var lblSodium: UILabel!
 	@IBOutlet weak var scrollView: UIScrollView!
+	@IBOutlet weak var contentViewHeight: NSLayoutConstraint!
+	@IBOutlet weak var containerView: UIView!
 	
 	//MARK: View Controller Lifecycle
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
 		setupRecipeDetails()
+	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		
+		let height = getContentViewHeight()
+		
+		if contentViewHeight.constant - CGFloat(height) < 100 {
+			contentViewHeight.constant = CGFloat(height) + 145.0 //constraint padding
+		} else {
+			contentViewHeight.constant = contentViewHeight.constant - 20
+		}
 	}
 	
 	//MARK: Actions
@@ -53,6 +65,14 @@ class RecipeDetailViewController: UIViewController {
 	
 	
 	//MARK: Methods
+	private func getContentViewHeight() -> Double {
+		let value = scrollView.subviews.reduce(0.0) { (total, subview) -> Double in
+			total + Double(subview.frame.size.height)
+		}
+		
+		return value
+	}
+	
 	private func setupRecipeDetails() {
 		recipeDetailImage.layer.cornerRadius = 10.0
 		if let recipe = recipe {
@@ -82,8 +102,17 @@ class RecipeDetailViewController: UIViewController {
 			let ingredientString = recipe.ingredients.reduce(String.Empty, combine: { (ingredientAccumulator, ingredient) -> String in
 				ingredientAccumulator + ingredient + "\n"
 			})
+			
 			ingredientsListView.layoutManager.delegate = self
+			
 			ingredientsListView.text = String(ingredientString.characters.dropLast())
+			
+			let fixedWidth = ingredientsListView.frame.size.width
+			ingredientsListView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+			let newSize = ingredientsListView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+			var newFrame = ingredientsListView.frame
+			newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+			ingredientsListView.frame = newFrame;
 			
 			if let nutrition = recipe.nutrition {
 				lblCalories.text = String(format: "%.2f g", nutrition.calories)
@@ -92,18 +121,7 @@ class RecipeDetailViewController: UIViewController {
 				lblSodium.text = String(format: "%.2f mg", nutrition.sodium)
 				lblProtein.text = String(format: "%.2f g", nutrition.protein)
 			}
-			
-			let contentHeight = getScrollViewContentSize()
-			scrollView.contentSize = CGSize(width: view.frame.width, height: contentHeight)
 		}
-	}
-	
-	private func getScrollViewContentSize() -> CGFloat {
-		let value = scrollView.subviews.reduce(0.0, combine: { (height, subview) -> CGFloat in
-			height + subview.bounds.size.height
-		})
-		
-		return value
 	}
 }
 
@@ -112,3 +130,14 @@ extension RecipeDetailViewController:NSLayoutManagerDelegate {
 		return 8
 	}
 }
+
+
+
+
+
+
+
+
+
+
+

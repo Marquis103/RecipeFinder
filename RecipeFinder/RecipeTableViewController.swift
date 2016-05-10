@@ -49,12 +49,9 @@ class RecipeTableViewController: UITableViewController {
 	
 	//MARK: Methods
 	func updateRecipes() {
-		loadingView.show()
-		
 		//perform search
 		recipeAPI.getRecipes(forFoodWithName: recipeSearchBar.text!, isUpdatingQuery: true) { (error) in
 			self.isUpdating = false
-			self.loadingView.hide()
 			performUIUpdatesOnMain({
 				self.tableView.reloadData()
 			})
@@ -70,9 +67,29 @@ extension RecipeTableViewController: UISearchBarDelegate {
 		
 		//perform search
 		recipeAPI.getRecipes(forFoodWithName: searchBar.text!, isUpdatingQuery: false) { (error) in
+			guard error == nil else {
+				performUIUpdatesOnMain({
+					self.loadingView.hide()
+					let alert = UIAlertController(title: "Query Error", message: "Sorry!  There was an error performing your query.  Please try again.", preferredStyle: .Alert)
+					let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+					alert.addAction(action)
+					self.presentViewController(alert, animated: true, completion: nil)
+				})
+				
+				return
+			}
+			
 			performUIUpdatesOnMain({
-				self.tableView.reloadData()
-				self.loadingView.hide()
+				if self.recipeAPI.recipes.count > 0 {
+					self.loadingView.hide()
+					self.tableView.reloadData()
+				} else {
+					self.loadingView.hide()
+					let alert = UIAlertController(title: "Results Not Found", message: "Ooops!  It appears we could not find any results for \(searchBar.text!)", preferredStyle: .Alert)
+					let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+					alert.addAction(action)
+					self.presentViewController(alert, animated: true, completion: nil)
+				}
 			})
 		}
 	}
