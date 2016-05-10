@@ -49,9 +49,12 @@ class RecipeTableViewController: UITableViewController {
 	
 	//MARK: Methods
 	func updateRecipes() {
+		loadingView.show()
+		
 		//perform search
 		recipeAPI.getRecipes(forFoodWithName: recipeSearchBar.text!, isUpdatingQuery: true) { (error) in
 			self.isUpdating = false
+			self.loadingView.hide()
 			performUIUpdatesOnMain({
 				self.tableView.reloadData()
 			})
@@ -61,6 +64,8 @@ class RecipeTableViewController: UITableViewController {
 
 extension RecipeTableViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+		searchBar.resignFirstResponder()
+		
 		loadingView.show()
 		
 		//perform search
@@ -74,6 +79,10 @@ extension RecipeTableViewController: UISearchBarDelegate {
 	
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
 		loadingView.hide()
+	}
+	
+	func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+		searchBar.resignFirstResponder()
 	}
 }
 
