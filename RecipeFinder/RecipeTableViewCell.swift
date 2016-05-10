@@ -33,17 +33,18 @@ class RecipeTableViewCell: UITableViewCell {
 		} else {
 			recipeImage.image = UIImage(named: "food_icn_no_image")
 		}
+		
 		recipeImage.layer.cornerRadius = CGRectGetWidth(recipeImage.frame) / 2.0
 		
-		recipeCalories.text = "\(recipe.nutrition?.calories)"
-		recipeDifficulty.text = "\(recipe.level)"
+		recipeCalories.text = String(format: "Calories: %.2f", (recipe.nutrition?.calories)!)
+		recipeDifficulty.text = (recipe.level == 0) ? "Difficulty Level: Not Available" : "Diffculty Level: \(recipe.level)"
 		recipeName.text = recipe.title
 		
 	}
 	
 	private func setLabelFonts() {
 		recipeName.font = UIFont.preferredFontForTextStyle("UIFontTextStyleTitle1")
-		recipeDifficulty.font = UIFont.preferredFontForTextStyle("UIFontTextStyleSuheadline")
+		recipeDifficulty.font = UIFont.preferredFontForTextStyle("UIFontTextStyleSubheadline")
 		recipeCalories.font = UIFont.preferredFontForTextStyle("UIFontTextStyleCaption1")
 	}
 }

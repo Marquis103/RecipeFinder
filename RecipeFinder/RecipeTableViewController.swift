@@ -18,6 +18,8 @@ class RecipeTableViewController: UITableViewController {
 	var recipeAPI = RecipeAPI.sharedAPI
 	private var isUpdating = false
 	
+	var selectedRecipe:Recipe?
+	
 	//MARK: Outlets
 	@IBOutlet weak var recipeSearchBar: UISearchBar!
 	
@@ -34,6 +36,15 @@ class RecipeTableViewController: UITableViewController {
 		view.addSubview(loadingView)
 		
 		recipeSearchBar.delegate = self
+	}
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "recipeDetailSegue" {
+			let destinationController = segue.destinationViewController as! RecipeDetailViewController
+			if let recipe = selectedRecipe {
+				destinationController.recipe = recipe
+			}
+		}
 	}
 	
 	//MARK: Methods
@@ -77,5 +88,11 @@ extension RecipeTableViewController {
 			
 			updateRecipes()
 		}
+	}
+	
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		selectedRecipe = recipeAPI.recipes[indexPath.row]
+		
+		performSegueWithIdentifier("recipeDetailSegue", sender: nil)
 	}
 }
