@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class RecipeDetailViewController: UIViewController {
 	//MARK: Properties
 	var recipe:Recipe?
+	var favoriteRecipe = false
+	
 	lazy var coreDataStack:CoreDataStack = {
 		return CoreDataStack.defaultStack
 	}()
@@ -39,18 +42,21 @@ class RecipeDetailViewController: UIViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
+		//if favorite set button attributes appropriately
+		isFavorite()
+		
+		//set up view
 		setupRecipeDetails()
+		
 	}
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		
-		//let height = getContentViewHeight()
 		let nutritionViewHeight = nutritionView.frame.maxY
 		
 		if contentViewHeight.constant - CGFloat(nutritionViewHeight) < 0 {
 			contentViewHeight.constant = nutritionViewHeight + 100
-			//contentViewHeight.constant = nutritionViewHeight + 100.0 //constraint padding
 		} else {
 			if scrollView.contentSize.height - nutritionViewHeight < 130 {
 				scrollView.contentSize.height = nutritionViewHeight + 10
@@ -61,20 +67,8 @@ class RecipeDetailViewController: UIViewController {
 	}
 	
 	//MARK: Actions
-	
 	@IBAction func addFavorite(sender: UIButton) {
-		if let recipe = recipe, let _ = recipe.nutrition {
-			
-			_ = RecipeEntity(context: coreDataStack.managedObjectContext, recipe: recipe, imageData: UIImageJPEGRepresentation(recipeDetailImage.image!, 0.80)!)
-			
-			do {
-				try coreDataStack.saveContext()
-			} catch {
-				let alert = getUIAlertController(withActvityTitle: "Favorites Error", message: "There was an error adding \(recipe.title) to your favorites.  Please try again.", actionTitle: "OK")
-				
-				presentViewController(alert, animated: true, completion: nil)
-			}
-		}
+		recipeFavoriteHandler()
 	}
 	
 	@IBAction func visitRecipeSource(sender: UIButton) {
@@ -92,12 +86,73 @@ class RecipeDetailViewController: UIViewController {
 	
 	
 	//MARK: Methods
-	private func getContentViewHeight() -> Double {
-		let value = scrollView.subviews.reduce(0.0) { (total, subview) -> Double in
-			total + Double(subview.frame.size.height)
+	
+	//If the recipe is a favorite delete it from favorites
+	//If the recipe is not a favorite add it to the favorites
+	private func recipeFavoriteHandler() {
+		if let recipe = recipe, let _ = recipe.nutrition {
+			
+			if favoriteRecipe {
+				let fetchRequest = NSFetchRequest(entityName: "RecipeEntity")
+				let predicate = NSPredicate(format: "%K = %@", "title", recipe.title)
+				
+				fetchRequest.predicate = predicate
+				
+				do {
+					let fetchedRecipes = try coreDataStack.managedObjectContext.executeFetchRequest(fetchRequest) as! [RecipeEntity]
+					
+					if let recipeEntity = fetchedRecipes.last {
+						coreDataStack.managedObjectContext.deleteObject(recipeEntity)
+						try coreDataStack.saveContext()
+						
+						//switch favorite recipe
+						favoriteRecipe = !favoriteRecipe
+					}
+				} catch let error {
+					NSLog("Error deleting favorites \(error)")
+					let alert = getUIAlertController(withActvityTitle: "Favorites Error", message: "There was an error deleting \(recipe.title) from your favorites.  Please try again.", actionTitle: "OK")
+					
+					presentViewController(alert, animated: true, completion: nil)
+					return
+				}
+			} else {
+				_ = RecipeEntity(context: coreDataStack.managedObjectContext, recipe: recipe, imageData: UIImageJPEGRepresentation(recipeDetailImage.image!, 0.80)!)
+				
+				do {
+					try coreDataStack.saveContext()
+					
+					//switch favorite recipe
+					favoriteRecipe = !favoriteRecipe
+				} catch {
+					NSLog("There was an error adding favorite \(error)")
+					
+					let alert = getUIAlertController(withActvityTitle: "Favorites Error", message: "There was an error adding \(recipe.title) to your favorites.  Please try again.", actionTitle: "OK")
+					
+					presentViewController(alert, animated: true, completion: nil)
+				}
+			}
 		}
-		
-		return value
+	}
+	
+	private func isFavorite() {
+		if let recipe = recipe {
+			let fetchRequest = NSFetchRequest(entityName: "RecipeEntity")
+			let predicate = NSPredicate(format: "%K = %@", "title", recipe.title)
+			
+			fetchRequest.predicate = predicate
+			
+			do {
+				let fetchedRecipes = try coreDataStack.managedObjectContext.executeFetchRequest(fetchRequest) as! [RecipeEntity]
+				
+				guard fetchedRecipes.count <= 0 else {
+					favoriteRecipe = true
+					return
+				}
+			} catch let error {
+				NSLog("Error fetching favorites \(error)")
+				return
+			}
+		}
 	}
 	
 	private func setupRecipeDetails() {

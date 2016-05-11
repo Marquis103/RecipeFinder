@@ -12,20 +12,11 @@ import CoreData
 class FavoriteRecipeTableViewControllerDataSource:NSObject, UITableViewDataSource {
 	private weak var tableView:UITableView!
 	
+	//data source initializer
 	init(withTableView tableView:UITableView) {
 		super.init()
 		self.tableView = tableView
 		self.tableView.dataSource = self
-	}
-	
-	func performFetch() throws {
-		do {
-			try fetchedResultsController.performFetch()
-		} catch let error as NSError {
-			tableView = nil
-			NSLog("Error during fetch\n \(error)")
-			throw error
-		}
 	}
 	
 	//MARK: UITableViewDataSource
@@ -50,10 +41,26 @@ class FavoriteRecipeTableViewControllerDataSource:NSObject, UITableViewDataSourc
 		let cell = tableView.dequeueReusableCellWithIdentifier("recipeCell", forIndexPath: indexPath) as! RecipeTableViewCell
 		
 		let recipe = fetchedResultsController.objectAtIndexPath(indexPath) as! RecipeEntity
-		
+		cell.userInteractionEnabled = true
 		cell.configureCell(recipe.convertToRecipe())
 		
 		return cell
+	}
+	
+	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		if editingStyle == .Delete {
+			let recipe = fetchedResultsController.objectAtIndexPath(indexPath)
+			
+			let coreData = CoreDataStack.defaultStack
+			
+			coreData.managedObjectContext.deleteObject(recipe as! NSManagedObject)
+			
+			do {
+				try coreData.saveContext()
+			} catch let error as NSError {
+				print(error)
+			}
+		}
 	}
 	
 	//MARK: FetchRequest
@@ -62,6 +69,16 @@ class FavoriteRecipeTableViewControllerDataSource:NSObject, UITableViewDataSourc
 		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
 		
 		return fetchRequest
+	}
+	
+	func performFetch() throws {
+		do {
+			try fetchedResultsController.performFetch()
+		} catch let error as NSError {
+			tableView = nil
+			NSLog("Error during fetch\n \(error)")
+			throw error
+		}
 	}
 	
 	//MARK: NSFetchedResultsController
@@ -75,12 +92,6 @@ class FavoriteRecipeTableViewControllerDataSource:NSObject, UITableViewDataSourc
 		return fetchedResultsController
 	}()
 }
-
-//MARK: UITableViewDelegate
-/*extension FavoriteRecipeTableViewControllerDataSource: UITableViewDelegate {
-	//MARK: TableViewControllerDelegate
-	
-}*/
 
 //MARK: NSFetchedResultsControllerDelegate
 extension FavoriteRecipeTableViewControllerDataSource: NSFetchedResultsControllerDelegate {

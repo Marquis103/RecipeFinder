@@ -38,18 +38,7 @@ class FavoriteRecipeTableViewController: UITableViewController {
 			return
 		}
 	}
-	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		/*guard Reachability.connectedToNetwork() == true else {
-			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection will be required to search for recipes.", preferredStyle: .Alert)
-			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-			alert.addAction(action)
-			presentViewController(alert, animated: true, completion: nil)
-			return
-		}*/
-	}
+
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "favRecipeDetailSegue" {
@@ -59,59 +48,20 @@ class FavoriteRecipeTableViewController: UITableViewController {
 			}
 		}
 	}
-	
-	//MARK: Methods
-	func updateRecipes() {
-		/*guard Reachability.connectedToNetwork() == true else {
-			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", preferredStyle: .Alert)
-			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-			alert.addAction(action)
-			presentViewController(alert, animated: true, completion: nil)
-			return
-		}*/
-		
-		//perform search
-		/*recipeAPI.getRecipes(forFoodWithName: recipeSearchBar.text!, isUpdatingQuery: true) { (error) in
-			self.isUpdating = false
-			performUIUpdatesOnMain({
-				self.tableView.reloadData()
-			})
-		}*/
-	}
 }
 
 extension FavoriteRecipeTableViewController {
-	override func scrollViewDidScroll(scrollView: UIScrollView) {
-		let currentOffset = scrollView.contentOffset.y
-		let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-		let deltaOffset = maximumOffset - currentOffset
-		
-		if deltaOffset <= 0 && !isUpdating {
-			isUpdating = true
-			
-			updateRecipes()
-		}
+	override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		return true
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let managedRecipe = dataSource.fetchedResultsController.objectAtIndexPath(indexPath) as? RecipeEntity
-		selectedRecipe = managedRecipe?.convertToRecipe()
-		performSegueWithIdentifier("favRecipeDetailSegue", sender: nil)
-	}
-	
-	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-		if editingStyle == .Delete {
-			let recipe = dataSource.fetchedResultsController.objectAtIndexPath(indexPath)
-			
-			let coreData = CoreDataStack.defaultStack
-			
-			coreData.managedObjectContext.deleteObject(recipe as! NSManagedObject)
-			
-			do {
-				try coreData.saveContext()
-			} catch let error as NSError {
-				print(error)
-			}
+		
+		if managedRecipe != nil {
+			selectedRecipe = managedRecipe?.convertToRecipe()
+			performSegueWithIdentifier("favRecipeDetailSegue", sender: nil)
 		}
+		
 	}
 }
