@@ -94,8 +94,8 @@ extension FavoriteRecipeTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		selectedRecipe = dataSource.fetchedResultsController.objectAtIndexPath(indexPath) as? Recipe
-		
+		let managedRecipe = dataSource.fetchedResultsController.objectAtIndexPath(indexPath) as? RecipeEntity
+		selectedRecipe = managedRecipe?.convertToRecipe()
 		performSegueWithIdentifier("favRecipeDetailSegue", sender: nil)
 	}
 	

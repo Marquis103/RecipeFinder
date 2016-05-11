@@ -106,24 +106,29 @@ class RecipeDetailViewController: UIViewController {
 		
 		if let recipe = recipe {
 			//get recipe image if connected to the network
-			if let imageURLString = recipe.image {
-				if Reachability.connectedToNetwork() {
-					performImageNetworkOperations({
-						if let url = NSURL(string: imageURLString), let data = NSData(contentsOfURL: url) {
-							performUIUpdatesOnMain({
-								if let image = UIImage(data: data) {
-									self.recipeDetailImage.image = image
-								} else {
-									self.recipeDetailImage.image = UIImage(named: "food_icn_no_image")
-								}
-							})
-						}
-					})
+			//or get cached image from coredata if favorite
+			if let imageData = recipe.imageData {
+				recipeDetailImage.image = UIImage(data: imageData)
+			} else {
+				if let imageURLString = recipe.image {
+					if Reachability.connectedToNetwork() {
+						performImageNetworkOperations({
+							if let url = NSURL(string: imageURLString), let data = NSData(contentsOfURL: url) {
+								performUIUpdatesOnMain({
+									if let image = UIImage(data: data) {
+										self.recipeDetailImage.image = image
+									} else {
+										self.recipeDetailImage.image = UIImage(named: "food_icn_no_image")
+									}
+								})
+							}
+						})
+					} else {
+						recipeDetailImage.image = UIImage(named: "food_icn_no_image")
+					}
 				} else {
 					recipeDetailImage.image = UIImage(named: "food_icn_no_image")
 				}
-			} else {
-				recipeDetailImage.image = UIImage(named: "food_icn_no_image")
 			}
 			
 			//set recipe info details
