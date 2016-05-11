@@ -403,6 +403,13 @@
                                                     </textView>
                                                 </subviews>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K62-bz-uZ3">
+                                                <rect key="frame" x="261" y="396" width="34" height="30"/>
+                                                <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="addFavorite:" destination="uEb-Ja-seP" eventType="touchUpInside" id="BdG-Cu-gLH"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95069405165912524" green="0.95069405165912524" blue="0.95069405165912524" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -474,6 +481,7 @@
                         <outlet property="containerView" destination="gBa-bk-vyC" id="SXj-3N-kf7"/>
                         <outlet property="contentViewHeight" destination="nbR-fk-bTF" id="bAS-iw-DP9"/>
                         <outlet property="cookTime" destination="pyT-KC-1c4" id="nEy-Cy-yc1"/>
+                        <outlet property="favoriteButton" destination="K62-bz-uZ3" id="2s5-35-73V"/>
                         <outlet property="ingredientsListView" destination="fsx-pp-HlL" id="g5N-gN-xpn"/>
                         <outlet property="lblCalories" destination="PK2-9k-8hZ" id="GAm-Iy-HGc"/>
                         <outlet property="lblCarbs" destination="XDP-LK-peb" id="u5W-sD-O0J"/>

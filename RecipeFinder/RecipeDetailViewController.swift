@@ -11,6 +11,9 @@ import UIKit
 class RecipeDetailViewController: UIViewController {
 	//MARK: Properties
 	var recipe:Recipe?
+	lazy var coreDataStack:CoreDataStack = {
+		return CoreDataStack.defaultStack
+	}()
 	
 	//Outlets
 	@IBOutlet weak var recipeDetailImage: UIImageView!
@@ -30,6 +33,7 @@ class RecipeDetailViewController: UIViewController {
 	@IBOutlet weak var contentViewHeight: NSLayoutConstraint!
 	@IBOutlet weak var containerView: UIView!
 	@IBOutlet weak var nutritionView: UIView!
+	@IBOutlet weak var favoriteButton: UIButton!
 	
 	//MARK: View Controller Lifecycle
 	override func viewWillAppear(animated: Bool) {
@@ -57,6 +61,22 @@ class RecipeDetailViewController: UIViewController {
 	}
 	
 	//MARK: Actions
+	
+	@IBAction func addFavorite(sender: UIButton) {
+		if let recipe = recipe, let _ = recipe.nutrition {
+			
+			_ = RecipeEntity(context: coreDataStack.managedObjectContext, recipe: recipe, imageData: UIImageJPEGRepresentation(recipeDetailImage.image!, 0.80)!)
+			
+			do {
+				try coreDataStack.saveContext()
+			} catch {
+				let alert = getUIAlertController(withActvityTitle: "Favorites Error", message: "There was an error adding \(recipe.title) to your favorites.  Please try again.", actionTitle: "OK")
+				
+				presentViewController(alert, animated: true, completion: nil)
+			}
+		}
+	}
+	
 	@IBAction func visitRecipeSource(sender: UIButton) {
 		if let urlString = recipe?.url {
 			let url = NSURL(string: urlString)!

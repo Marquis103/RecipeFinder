@@ -7,15 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class FavoriteRecipeTableViewController: UITableViewController {
 
 	//MARK: Properties
-	var dataSource:RecipeTableViewControllerDataSource!
+	var dataSource:FavoriteRecipeTableViewControllerDataSource!
 	
 	var loadingView = ActivityIndicatorLoadingView(frame: CGRect(x: 0.0, y: 0.0, width: 80.0, height: 80.0))
 	
-	var recipeAPI = RecipeAPI.sharedAPI
 	private var isUpdating = false
 	
 	var selectedRecipe:Recipe?
@@ -24,13 +24,19 @@ class FavoriteRecipeTableViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		dataSource = RecipeTableViewControllerDataSource()
-		
-		tableView.dataSource = dataSource
+		dataSource = FavoriteRecipeTableViewControllerDataSource(withTableView: tableView)
 		tableView.delegate = self
 		
 		loadingView.center = view.center
 		view.addSubview(loadingView)
+		
+		do {
+			try dataSource.performFetch()
+		} catch {
+			let alert = getUIAlertController(withActvityTitle: "Internet Connection Required", message: "An Internet connection will be required to search for recipes.", actionTitle: "OK")
+			presentViewController(alert, animated: true, completion: nil)
+			return
+		}
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -88,9 +94,24 @@ extension FavoriteRecipeTableViewController {
 	}
 	
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		view.endEditing(true)
-		selectedRecipe = recipeAPI.recipes[indexPath.row]
+		selectedRecipe = dataSource.fetchedResultsController.objectAtIndexPath(indexPath) as? Recipe
 		
 		performSegueWithIdentifier("favRecipeDetailSegue", sender: nil)
+	}
+	
+	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		if editingStyle == .Delete {
+			let recipe = dataSource.fetchedResultsController.objectAtIndexPath(indexPath)
+			
+			let coreData = CoreDataStack.defaultStack
+			
+			coreData.managedObjectContext.deleteObject(recipe as! NSManagedObject)
+			
+			do {
+				try coreData.saveContext()
+			} catch let error as NSError {
+				print(error)
+			}
+		}
 	}
 }

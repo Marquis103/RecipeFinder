@@ -17,25 +17,28 @@ class RecipeTableViewCell: UITableViewCell {
 	
 	func configureCell(recipe: Recipe) {
 		setLabelFonts()
-		
-		if let imageURLString = recipe.image {
-			if Reachability.connectedToNetwork() {
-				performImageNetworkOperations({
-					if let url = NSURL(string: imageURLString), let data = NSData(contentsOfURL: url) {
-						performUIUpdatesOnMain({
-							if let image = UIImage(data: data) {
-								self.recipeImage.image = image
-							} else {
-								self.recipeImage.image = UIImage(named: "food_icn_no_image")
-							}
-						})
-					}
-				})
+		if let imageData = recipe.imageData {
+			recipeImage.image = UIImage(data: imageData)
+		} else {
+			if let imageURLString = recipe.image {
+				if Reachability.connectedToNetwork() {
+					performImageNetworkOperations({
+						if let url = NSURL(string: imageURLString), let data = NSData(contentsOfURL: url) {
+							performUIUpdatesOnMain({
+								if let image = UIImage(data: data) {
+									self.recipeImage.image = image
+								} else {
+									self.recipeImage.image = UIImage(named: "food_icn_no_image")
+								}
+							})
+						}
+					})
+				} else {
+					recipeImage.image = UIImage(named: "food_icn_no_image")
+				}
 			} else {
 				recipeImage.image = UIImage(named: "food_icn_no_image")
 			}
-		} else {
-			recipeImage.image = UIImage(named: "food_icn_no_image")
 		}
 		
 		recipeImage.layer.cornerRadius = CGRectGetWidth(recipeImage.frame) / 2.0

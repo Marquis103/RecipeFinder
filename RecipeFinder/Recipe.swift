@@ -24,6 +24,7 @@ struct Recipe {
 	var image:String?
 	var nutrition:Nutrition?
 	var url: String?
+	var imageData:NSData?
 	
 	//computed properties
 	var totalTime:Double? {

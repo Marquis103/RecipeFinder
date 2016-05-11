@@ -42,9 +42,7 @@ class RecipeTableViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		
 		guard Reachability.connectedToNetwork() == true else {
-			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection will be required to search for recipes.", preferredStyle: .Alert)
-			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-			alert.addAction(action)
+			let alert = getUIAlertController(withActvityTitle: "Internet Connection Required", message: "An Internet connection will be required to search for recipes.", actionTitle: "OK")
 			presentViewController(alert, animated: true, completion: nil)
 			return
 		}
@@ -62,9 +60,7 @@ class RecipeTableViewController: UITableViewController {
 	//MARK: Methods
 	func updateRecipes() {
 		guard Reachability.connectedToNetwork() == true else {
-			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", preferredStyle: .Alert)
-			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-			alert.addAction(action)
+			let alert = getUIAlertController(withActvityTitle: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", actionTitle: "OK")
 			presentViewController(alert, animated: true, completion: nil)
 			return
 		}
@@ -84,9 +80,7 @@ extension RecipeTableViewController: UISearchBarDelegate {
 		searchBar.resignFirstResponder()
 		
 		guard Reachability.connectedToNetwork() == true else {
-			let alert = UIAlertController(title: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", preferredStyle: .Alert)
-			let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-			alert.addAction(action)
+			let alert = getUIAlertController(withActvityTitle: "Internet Connection Required", message: "An Internet connection is required to search for recipes.", actionTitle: "OK")
 			presentViewController(alert, animated: true, completion: nil)
 			return
 		}
@@ -98,9 +92,7 @@ extension RecipeTableViewController: UISearchBarDelegate {
 			guard error == nil else {
 				performUIUpdatesOnMain({
 					self.loadingView.hide()
-					let alert = UIAlertController(title: "Query Error", message: "Sorry!  There was an error performing your query.  Please try again.", preferredStyle: .Alert)
-					let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-					alert.addAction(action)
+					let alert = getUIAlertController(withActvityTitle: "Query Error", message: "Sorry!  There was an error performing your query.  Please try again.", actionTitle: "OK")
 					self.presentViewController(alert, animated: true, completion: nil)
 				})
 				
@@ -113,9 +105,7 @@ extension RecipeTableViewController: UISearchBarDelegate {
 					self.tableView.reloadData()
 				} else {
 					self.loadingView.hide()
-					let alert = UIAlertController(title: "Results Not Found", message: "Ooops!  It appears we could not find any results for \(searchBar.text!)", preferredStyle: .Alert)
-					let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-					alert.addAction(action)
+					let alert = getUIAlertController(withActvityTitle: "Results Not Found", message: "Ooops!  It appears we could not find any results for \(searchBar.text!)", actionTitle: "OK")
 					self.presentViewController(alert, animated: true, completion: nil)
 				}
 			})

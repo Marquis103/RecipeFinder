@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="RecipeEntity" representedClassName=".RecipeEntity" syncable="YES">
+        <attribute name="calories" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="carbs" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="cookTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="difficulty" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="fat" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" storedInTruthFile="YES" syncable="YES"/>
+        <attribute name="ingredients" attributeType="Transformable" syncable="YES"/>
+        <attribute name="prepTime" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="protein" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="sodium" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="source" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="RecipeEntity" positionX="-63" positionY="-18" width="128" height="255"/>
+    </elements>
+</model>
