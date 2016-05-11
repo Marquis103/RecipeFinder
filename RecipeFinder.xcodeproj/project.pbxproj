@@ -26,6 +26,7 @@
 		F46970B01CE11FA100068D2D /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46970AF1CE11FA100068D2D /* RecipeDetailViewController.swift */; };
 		F4AB039E1CE235840063C03F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB039D1CE235840063C03F /* Reachability.swift */; };
 		F4AB03A01CE23E930063C03F /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4AB039F1CE23E930063C03F /* Keys.plist */; };
+		F4AB03A21CE2AA5C0063C03F /* FavoriteRecipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB03A11CE2AA5C0063C03F /* FavoriteRecipeTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		F46970AF1CE11FA100068D2D /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		F4AB039D1CE235840063C03F /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		F4AB039F1CE23E930063C03F /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		F4AB03A11CE2AA5C0063C03F /* FavoriteRecipeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 				F469709D1CDFBFD100068D2D /* RecipeTableViewControllerDataSource.swift */,
 				F46970A11CDFC5B000068D2D /* RecipeNavigationController.swift */,
 				F46970AF1CE11FA100068D2D /* RecipeDetailViewController.swift */,
+				F4AB03A11CE2AA5C0063C03F /* FavoriteRecipeTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F469709E1CDFBFD100068D2D /* RecipeTableViewControllerDataSource.swift in Sources */,
+				F4AB03A21CE2AA5C0063C03F /* FavoriteRecipeTableViewController.swift in Sources */,
 				F46970A61CE047FF00068D2D /* RecipeTableViewCell.swift in Sources */,
 				F469705D1CDD256A00068D2D /* AppDelegate.swift in Sources */,
 				F46970961CDE894600068D2D /* RecipeAPI.swift in Sources */,
