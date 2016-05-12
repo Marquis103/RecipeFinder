@@ -35,17 +35,8 @@ class RecipeTableViewController: UITableViewController {
 		loadingView.center = view.center
 		view.addSubview(loadingView)
 		
+		recipeSearchBar.showsCancelButton = true
 		recipeSearchBar.delegate = self
-	}
-	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		guard Reachability.connectedToNetwork() == true else {
-			let alert = getUIAlertController(withActvityTitle: "Internet Connection Required", message: "An Internet connection will be required to search for recipes.", actionTitle: "OK")
-			presentViewController(alert, animated: true, completion: nil)
-			return
-		}
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -113,6 +104,7 @@ extension RecipeTableViewController: UISearchBarDelegate {
 	}
 	
 	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+		searchBar.resignFirstResponder()
 		loadingView.hide()
 	}
 	

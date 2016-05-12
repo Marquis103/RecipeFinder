@@ -52,10 +52,6 @@ class RecipeDetailViewController: UIViewController {
 		
 		//set up view
 		setupRecipeDetails()
-		
-		//if favorite set button attributes appropriately
-		isFavorite()
-		
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -153,6 +149,9 @@ class RecipeDetailViewController: UIViewController {
 				let fetchedRecipes = try coreDataStack.managedObjectContext.executeFetchRequest(fetchRequest) as! [RecipeEntity]
 				
 				guard fetchedRecipes.count <= 0 else {
+					if let recipeEntity = fetchedRecipes.last {
+						self.recipe!.imageData = recipeEntity.image
+					}
 					favoriteRecipe = true
 					return
 				}
@@ -168,6 +167,9 @@ class RecipeDetailViewController: UIViewController {
 	private func setupRecipeDetails() {
 		
 		recipeDetailImage.layer.cornerRadius = 10.0
+		
+		//if favorite set button attributes appropriately
+		isFavorite()
 		
 		if let recipe = recipe {
 			//get recipe image if connected to the network
