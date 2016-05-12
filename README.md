@@ -10,9 +10,7 @@ App is build using Swift 2.2, iOS 9 and XCode 7.  The application uses the Edama
 * Preparation and Cook Time are not returned.
 
 ###Needed Functionality
-* Device side cache can be used to store images and recipes locally on device between application usage.
 * Layout can be improved
-* Capability to bookmark favorite recipes
 
 ####License
 Code released under the [GPL License](https://github.com/Marquis103/RecipeFinder/blob/master/LICENSE)
