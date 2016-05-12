@@ -129,13 +129,14 @@ class RecipeClient {
 	
 	private func parseNutrition(nutritionDict: [String:AnyObject]) -> Nutrition? {
 		if let totalNutrients = nutritionDict[Constants.JSONKeys.totalNutrients] as? [String:AnyObject] {
-			let calories = nutritionDict[Constants.JSONKeys.calories] as? Float
-			let fat = totalNutrients[Constants.JSONKeys.fat]?[Constants.JSONKeys.value] as? Float
-			let carbs = totalNutrients[Constants.JSONKeys.carbs]?[Constants.JSONKeys.value] as? Float
-			let sodium = totalNutrients[Constants.JSONKeys.sodium]?[Constants.JSONKeys.value] as? Float
-			let protein = totalNutrients[Constants.JSONKeys.protein]?[Constants.JSONKeys.value] as? Float
+			let calories = (nutritionDict[Constants.JSONKeys.calories] as? Float) ?? 0.0
+			let fat = (totalNutrients[Constants.JSONKeys.fat]?[Constants.JSONKeys.value] as? Float) ?? 0.0
+			let carbs = (totalNutrients[Constants.JSONKeys.carbs]?[Constants.JSONKeys.value] as? Float) ?? 0.0
+			let sodium = (totalNutrients[Constants.JSONKeys.sodium]?[Constants.JSONKeys.value] as? Float) ?? 0.0
+			let protein = (totalNutrients[Constants.JSONKeys.protein]?[Constants.JSONKeys.value] as? Float) ?? 0.0
 			
-			return Nutrition(calories: calories!, fat: fat!, carbs: carbs!, protein: protein!, sodium: sodium!)
+			
+			return Nutrition(calories: calories, fat: fat, carbs: carbs, protein: protein, sodium: sodium)
 		}
 		
 		return nil

@@ -129,8 +129,8 @@
                                                             <constraint firstAttribute="width" constant="99" id="UAq-ax-A1h"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Ll6-ml-AWw">
-                                                        <rect key="frame" x="103" y="0.0" width="455" height="53"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Ll6-ml-AWw">
+                                                        <rect key="frame" x="103" y="0.0" width="455" height="91"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="FLH-Gn-pAN">
                                                                 <rect key="frame" x="0.0" y="0.0" width="455" height="39"/>
@@ -156,17 +156,32 @@
                                                                     <constraint firstAttribute="trailing" secondItem="Acw-4g-3UB" secondAttribute="trailing" id="NqF-IQ-V6g"/>
                                                                 </constraints>
                                                             </stackView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Difficulty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ag-VK-fye">
-                                                                <rect key="frame" x="0.0" y="39" width="455" height="14"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Difficulty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ag-VK-fye">
+                                                                <rect key="frame" x="0.0" y="41" width="455" height="14"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                                 <color key="textColor" red="0.38431372549999998" green="0.38431372549999998" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K62-bz-uZ3" customClass="AddFavoriteButton" customModule="RecipeFinder" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="57" width="120" height="34"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="120" id="JkD-Am-lu8"/>
+                                                                </constraints>
+                                                                <connections>
+                                                                    <action selector="addFavorite:" destination="uEb-Ja-seP" eventType="touchUpInside" id="BdG-Cu-gLH"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="FLH-Gn-pAN" secondAttribute="trailing" id="biJ-Ur-lxT"/>
                                                             <constraint firstAttribute="trailing" secondItem="6Ag-VK-fye" secondAttribute="trailing" id="kZ7-WQ-mJw"/>
+                                                            <constraint firstAttribute="trailing" secondItem="K62-bz-uZ3" secondAttribute="trailing" id="vts-3w-DnD"/>
                                                         </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="vts-3w-DnD"/>
+                                                            </mask>
+                                                        </variation>
                                                     </stackView>
                                                 </subviews>
                                                 <constraints>
@@ -403,13 +418,6 @@
                                                     </textView>
                                                 </subviews>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K62-bz-uZ3">
-                                                <rect key="frame" x="261" y="396" width="34" height="30"/>
-                                                <state key="normal" title="Save"/>
-                                                <connections>
-                                                    <action selector="addFavorite:" destination="uEb-Ja-seP" eventType="touchUpInside" id="BdG-Cu-gLH"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95069405165912524" green="0.95069405165912524" blue="0.95069405165912524" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>

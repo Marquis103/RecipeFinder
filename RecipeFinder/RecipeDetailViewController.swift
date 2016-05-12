@@ -12,7 +12,15 @@ import CoreData
 class RecipeDetailViewController: UIViewController {
 	//MARK: Properties
 	var recipe:Recipe?
-	var favoriteRecipe = false
+	var favoriteRecipe = false {
+		didSet {
+			if favoriteRecipe {
+				favoriteButton.selected = true
+			} else {
+				favoriteButton.selected = false
+			}
+		}
+	}
 	
 	lazy var coreDataStack:CoreDataStack = {
 		return CoreDataStack.defaultStack
@@ -36,17 +44,17 @@ class RecipeDetailViewController: UIViewController {
 	@IBOutlet weak var contentViewHeight: NSLayoutConstraint!
 	@IBOutlet weak var containerView: UIView!
 	@IBOutlet weak var nutritionView: UIView!
-	@IBOutlet weak var favoriteButton: UIButton!
+	@IBOutlet weak var favoriteButton: AddFavoriteButton!
 	
 	//MARK: View Controller Lifecycle
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		//if favorite set button attributes appropriately
-		isFavorite()
-		
 		//set up view
 		setupRecipeDetails()
+		
+		//if favorite set button attributes appropriately
+		isFavorite()
 		
 	}
 	
@@ -152,6 +160,8 @@ class RecipeDetailViewController: UIViewController {
 				NSLog("Error fetching favorites \(error)")
 				return
 			}
+			
+			favoriteRecipe = false
 		}
 	}
 	
@@ -195,6 +205,9 @@ class RecipeDetailViewController: UIViewController {
 			prepTime.text = "NA"
 			cookTime.text = "NA"
 			totalTime.text = "NA"
+			
+			//configure favorite button
+			favoriteButton.configureButton()
 			
 			//set ingredients text and view
 			let ingredientString = recipe.ingredients.reduce(String.Empty, combine: { (ingredientAccumulator, ingredient) -> String in

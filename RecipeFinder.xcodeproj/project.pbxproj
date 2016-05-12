@@ -13,6 +13,7 @@
 		F45E640D1CE2DCB000EB18A9 /* RecipeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45E640B1CE2DCB000EB18A9 /* RecipeEntity.swift */; };
 		F45E64111CE2EAFF00EB18A9 /* UIBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45E64101CE2EAFF00EB18A9 /* UIBlackBox.swift */; };
 		F45E64131CE2F08100EB18A9 /* FavoriteRecipeTableViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45E64121CE2F08100EB18A9 /* FavoriteRecipeTableViewControllerDataSource.swift */; };
+		F45E64151CE3E25800EB18A9 /* AddFavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45E64141CE3E25800EB18A9 /* AddFavoriteButton.swift */; };
 		F469705D1CDD256A00068D2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469705C1CDD256A00068D2D /* AppDelegate.swift */; };
 		F46970621CDD256A00068D2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F46970601CDD256A00068D2D /* Main.storyboard */; };
 		F46970641CDD256A00068D2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F46970631CDD256A00068D2D /* Assets.xcassets */; };
@@ -59,6 +60,7 @@
 		F45E640B1CE2DCB000EB18A9 /* RecipeEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeEntity.swift; sourceTree = "<group>"; };
 		F45E64101CE2EAFF00EB18A9 /* UIBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBlackBox.swift; sourceTree = "<group>"; };
 		F45E64121CE2F08100EB18A9 /* FavoriteRecipeTableViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeTableViewControllerDataSource.swift; sourceTree = "<group>"; };
+		F45E64141CE3E25800EB18A9 /* AddFavoriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFavoriteButton.swift; sourceTree = "<group>"; };
 		F46970591CDD256A00068D2D /* RecipeFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F469705C1CDD256A00068D2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F46970611CDD256A00068D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				F46970A51CE047FF00068D2D /* RecipeTableViewCell.swift */,
+				F45E64141CE3E25800EB18A9 /* AddFavoriteButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 		F46970A81CE0D33D00068D2D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F46970AA1CE0DB4500068D2D /* GCDBlackbox.swift */,
 				F4AB039D1CE235840063C03F /* Reachability.swift */,
 			);
 			name = Classes;
@@ -272,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				F46970A31CDFDE7800068D2D /* ActivityIndicatorLoadingView.swift */,
-				F46970AA1CE0DB4500068D2D /* GCDBlackbox.swift */,
 				F45E64101CE2EAFF00EB18A9 /* UIBlackBox.swift */,
 			);
 			name = Views;
@@ -438,6 +441,7 @@
 				F45E64111CE2EAFF00EB18A9 /* UIBlackBox.swift in Sources */,
 				F45E640D1CE2DCB000EB18A9 /* RecipeEntity.swift in Sources */,
 				F4AB039E1CE235840063C03F /* Reachability.swift in Sources */,
+				F45E64151CE3E25800EB18A9 /* AddFavoriteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
